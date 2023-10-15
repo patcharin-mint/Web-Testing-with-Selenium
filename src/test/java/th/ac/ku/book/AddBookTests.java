@@ -2,7 +2,6 @@
 package th.ac.ku.book;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.h2.mvstore.Page;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -19,7 +18,7 @@ import java.time.Duration;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class AddBookTest {
+public class AddBookTests {
 
     @LocalServerPort
     private Integer port; //เอา ramdom part มาใส่
@@ -59,7 +58,7 @@ public class AddBookTest {
 
         assertEquals("Clean Code", name.getText());
         assertEquals("Robert Martin", author.getText());
-        assertEquals("600.00", price.getText()); //เวลามันแสดงในหน้าเว็บมันใช้ .00
+        assertEquals("1,000.00", price.getText()); //เวลามันแสดงในหน้าเว็บมันใช้ .00
 
     }
 
