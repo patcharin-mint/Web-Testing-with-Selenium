@@ -1,3 +1,4 @@
+//Patcharin Khangwicha 6410406797
 package th.ac.ku.book;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -25,7 +26,7 @@ public class AddBookTest {
     private static WebDriver driver;
     private static WebDriverWait wait;
 
-    @FindBy(id = "nameInput") //WebElement นี้หาด้วยอะไร
+    @FindBy(id = "nameInput") //WebElement นี้หาด้วย id ที่ชื่อ "nameInput"
     private WebElement nameField;
 
     @FindBy(id = "authorInput")
@@ -40,15 +41,15 @@ public class AddBookTest {
     @Test
     void testAddBook() { //wait.until = รอจนกว่าจะหาเจอ + โหลดเสร็จ
 
-        //ใส่ข้อมูล
+        //senKeys = ใส่ข้อมูล
         nameField.sendKeys("Clean Code");
         authorField.sendKeys("Robert Martin");
-        priceField.sendKeys("600");
+        priceField.sendKeys("1000"); //ใส่เป็น string ไปเพราะืุกอย่างใน html มันเป็น string
 
-        submitButton.click();
+        submitButton.click(); //จาก addBook พอกดปุ๊บมันจะไปหน้าใหม่ซึ่งจะเก็บค่าที่เราใส่เข้าไปไว้ในตารางตาม html เลย
 
 
-//        เอา xpath มาใช้แทน
+        //เอา xpath มาใช้แทน การหาจาก id
         WebElement name = wait.until(webDriver -> webDriver
                 .findElement(By.xpath("//table/tbody/tr[1]/td[1]")));
         WebElement author = driver
@@ -58,7 +59,7 @@ public class AddBookTest {
 
         assertEquals("Clean Code", name.getText());
         assertEquals("Robert Martin", author.getText());
-        assertEquals("600.00", price.getText());
+        assertEquals("600.00", price.getText()); //เวลามันแสดงในหน้าเว็บมันใช้ .00
 
     }
 
@@ -72,19 +73,19 @@ public class AddBookTest {
 
     @BeforeEach
     public void beforeEach() {
-        driver.get("http://localhost:" + port + "/book/add");
-        PageFactory.initElements(driver,this);
+        driver.get("http://localhost:" + port + "/book/add"); //ไป url นี้
+        PageFactory.initElements(driver,this); //ประมาณว่าสร้าง element ของ page
     }
 
     @AfterEach
     public void afterEach() throws InterruptedException {
-        Thread.sleep(3000);
+        Thread.sleep(3000); //รอให้เราดูก่อนมันจะปิด
     }
 
     @AfterAll
     public static void afterAll() {
         if (driver != null)
-            driver.quit();
+            driver.quit(); //ให้มันปิด
     }
 
 }
